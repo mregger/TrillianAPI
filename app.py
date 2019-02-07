@@ -6,8 +6,9 @@ from flask import Flask, request
 app = Flask(__name__)
 
 from chatterbot import ChatBot
-trillian = ChatBot('Trillian', trainer='chatterbot.trainers.ChatterBotCorpusTrainer')
-trillian.train('chatterbot.corpus.english')
+trillian = ChatBot('Trillian',
+	storage_adapter='chatterbot.storage.SQLStorageAdapter',
+	database_url='./trillian.db')
 
 @app.route('/', methods=['GET'])
 def get_response():
