@@ -2,6 +2,7 @@
 #
 #by Eduardo"
 
+import sys
 import asyncio
 import websockets
 from chatterbot import ChatBot
@@ -20,6 +21,9 @@ async def on_message(ws, path):
 
 if __name__ == '__main__':
 	pass
-	server = websockets.serve(on_message, "localhost", 5000)
+	if len(sys.argv) > 1 and sys.argv[1] == 'prod':
+		server = websockets.serve(on_message, "0.0.0.0", 80)
+	else:
+		server = websockets.serve(on_message, "localhost", 5000)
 	asyncio.get_event_loop().run_until_complete(server)
 	asyncio.get_event_loop().run_forever()
