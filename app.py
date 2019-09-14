@@ -17,7 +17,7 @@ async def on_message(ws, path):
 	while True:
 		m = await ws.recv()
 		r = await handle_message(m)
-		await ws.send(m)
+		await ws.send(r)
 
 if __name__ == '__main__':
 	pass
