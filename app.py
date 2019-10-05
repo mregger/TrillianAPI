@@ -2,16 +2,27 @@
 #
 #by Eduardo"
 
-import sys
 import asyncio
+import json
+import sys
+import time
 import websockets
+
 from chatterbot import ChatBot
 trillian = ChatBot('Trillian',
 	storage_adapter='chatterbot.storage.SQLStorageAdapter',
 	database_url='./trillian.db')
 
 async def handle_message(m):
-	return str(trillian.get_response(m))+'\n'
+	print(m)
+	m = json.loads(m)['content']
+	content = str(trillian.get_response(m))+'\n'
+	r = json.dumps({
+		'from': 'Trillian',
+		'content': content,
+		'timestamp': time.time()
+	})
+	return r
 
 async def on_message(ws, path):
 	while True:
