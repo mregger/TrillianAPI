@@ -26,7 +26,10 @@ async def handle_message(m):
 
 async def on_message(ws, path):
 	while True:
-		m = await ws.recv()
+		try:
+			m = await ws.recv()
+		except:
+			break
 		r = await handle_message(m)
 		await ws.send(r)
 
