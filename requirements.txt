@@ -1,2 +1,2 @@
 chatterbot==0.8.1
-flask==1.1.1
+flask==2.3.2
